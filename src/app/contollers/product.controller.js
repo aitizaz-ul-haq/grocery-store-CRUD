@@ -90,10 +90,19 @@ const updateProduct = async (req, res) => {
 
     const response = await product.find({ _id: id });
 
+    if (response.length > 0 ) {
     return res.status(200).json({
       status: true,
       data: response,
     });
+  }
+    else {
+      return res.status(200).json({
+        status: false,
+        message: 'not updated',
+      });
+    }
+
   } catch (error) {
     return res.status(200).json({
       status: false,
@@ -113,10 +122,22 @@ const deleteProduct = async (req, res) => {
       _id: id,
     });
 
-    return res.status(200).json({
-      status: true,
-      message: "product deleted!",
-    });
+    if( req.params.id == id ) {
+
+      return res.status(200).json({
+        status: true,
+        message: "product deleted!",
+      });
+    }
+
+    else {
+      return res.status(200).json({
+        status: true,
+        message: "record not found",
+      });
+    }
+        
+    
   } catch (error) {
     return res.status(200).json({
       status: false,
