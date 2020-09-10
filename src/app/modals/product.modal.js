@@ -9,7 +9,7 @@
     create modal schema
 */  
 
-  const userSchema = mongoose.Schema({
+  const productSchema = mongoose.Schema({
             name : {
                 type : String,
                 required : true,
@@ -37,7 +37,7 @@
 */
 
 
-const user = mongoose.model('user', userSchema);
+const product = mongoose.model('product', productSchema);
 
 
 /* 
@@ -46,5 +46,5 @@ const user = mongoose.model('user', userSchema);
 
 
   module.exports = {
-      user
+      product
   }

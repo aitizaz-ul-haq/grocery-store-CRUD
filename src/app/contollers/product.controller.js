@@ -1,8 +1,8 @@
-const { User } = require("../models/user.model");
+const { Product } = require("../models/product.model");
 
 
 //Add user to DB
-const addUser = async (req, res) => {
+const addproduct = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -27,7 +27,7 @@ const addUser = async (req, res) => {
 
 
 // Get all users Stored in DB
-const getUsers = async (req, res) => {
+const getproducts = async (req, res) => {
   try {
     const response = await User.find();
 
@@ -48,7 +48,7 @@ const getUsers = async (req, res) => {
 
 
 //Get a User from DB by ID 
-const getUserById = async (req, res) => {
+const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -71,7 +71,7 @@ const getUserById = async (req, res) => {
 
 
 // Update a user in DB by Finding it by id and then updating it 
-const updateUser = async (req, res) => {
+const updateProduct = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -98,7 +98,7 @@ const updateUser = async (req, res) => {
 /* 
   Remove a user from DB
 */
-const deleteUser = async (req, res) => {
+const deleteProduct = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -119,9 +119,9 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  addUser,
-  getUsers,
-  getUserById,
-  updateUser,
-  deleteUser,
+        addproduct,
+        getproducts,
+        getProductById,
+        updateProduct,
+        deleteProduct
 };

@@ -35,7 +35,7 @@ require(`./src/config/db.config`);
    import routes
 */
 
-require(`./src/app/routes/user.route`);
+require(`./src/app/routes/product.route`);
 
 
 
