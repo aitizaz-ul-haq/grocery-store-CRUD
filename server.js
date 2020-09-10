@@ -27,6 +27,7 @@ app.use(cors())
 
 */
 require(`./src/config/db.config`);
+require("dotenv").config();
 
 /*  
     add port to express server 
