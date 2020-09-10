@@ -1,4 +1,4 @@
-const { Product } = require("../modals/product.modal");
+const { product } = require("../modals/product.modal");
 
 
 //Add product to DB
@@ -6,7 +6,7 @@ const addproduct = async (req, res) => {
   try {
     const { name, price, amount } = req.body;
 
-    const response = await Product.create({
+    const response = await product.create({
       name: name,
       price: price,
       amount: amount,
