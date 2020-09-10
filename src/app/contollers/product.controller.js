@@ -28,20 +28,14 @@ const getproducts = async (req, res) => {
   try {
     const response = await product.find();
     
-    if(response.json > 0){
+    
     return res.status(200).json({
       status: true,
       length: response.length,
       data: response,
     });
     
-  }
-  else {
-      return res.json({
-        status : false,
-        message: 'no products found'
-      })
-  }
+  
 
   } catch (error) {
     return res.status(200).json({
@@ -74,7 +68,7 @@ const getProductById = async (req, res) => {
   } catch (error) {
     return res.status(200).json({
       status: false,
-      error: error.message,
+      message: "id not found",
     });
   }
 };
@@ -93,6 +87,7 @@ const updateProduct = async (req, res) => {
     if (response.length > 0 ) {
     return res.status(200).json({
       status: true,
+      message : 'data updated',
       data: response,
     });
   }
