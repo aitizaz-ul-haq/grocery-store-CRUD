@@ -1,6 +1,5 @@
 const { product } = require("../modals/product.modal");
 
-
 //Add product to DB
 const addproduct = async (req, res) => {
   try {
@@ -24,18 +23,26 @@ const addproduct = async (req, res) => {
   }
 };
 
-
-
 // Get all product Stored in DB
 const getproducts = async (req, res) => {
   try {
-    const response = await Product.find();
-
+    const response = await product.find();
+    
+    if(response.json > 0){
     return res.status(200).json({
       status: true,
       length: response.length,
       data: response,
     });
+    
+  }
+  else {
+      return res.json({
+        status : false,
+        message: 'no products found'
+      })
+  }
+
   } catch (error) {
     return res.status(200).json({
       status: false,
@@ -44,22 +51,26 @@ const getproducts = async (req, res) => {
   }
 };
 
-
-
-
-//Get a product from DB by ID 
+//Get a product from DB by ID
 const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const response = await Product.find({
+    const response = await product.find({
       _id: id,
     });
 
-    return res.status(200).json({
-      status: true,
-      data: response,
-    });
+    if (response.length > 0) {
+      return res.status(200).json({
+        status: true,
+        data: response,
+      });
+    } else {
+      return res.status(200).json({
+        status: false,
+        message: 'record not found!',
+      });
+    }
   } catch (error) {
     return res.status(200).json({
       status: false,
@@ -68,18 +79,16 @@ const getProductById = async (req, res) => {
   }
 };
 
-
-
-// Update a product in DB by Finding it by id and then updating it 
+// Update a product in DB by Finding it by id and then updating it
 const updateProduct = async (req, res) => {
   try {
     const id = req.params.id;
 
     const updateObj = req.body;
 
-    await Product.update({ _id: id }, { $set: updateObj });
+    await product.update({ _id: id }, { $set: updateObj });
 
-    const response = await Product.find({ _id: id });
+    const response = await product.find({ _id: id });
 
     return res.status(200).json({
       status: true,
@@ -92,8 +101,6 @@ const updateProduct = async (req, res) => {
     });
   }
 };
-
-
 
 /* 
   Remove a product from DB
@@ -102,7 +109,7 @@ const deleteProduct = async (req, res) => {
   try {
     const id = req.params.id;
 
-    await Product.deleteOne({
+    await product.deleteOne({
       _id: id,
     });
 
@@ -119,9 +126,9 @@ const deleteProduct = async (req, res) => {
 };
 
 module.exports = {
-        addproduct,
-        getproducts,
-        getProductById,
-        updateProduct,
-        deleteProduct
+  addproduct,
+  getproducts,
+  getProductById,
+  updateProduct,
+  deleteProduct,
 };

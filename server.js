@@ -7,21 +7,11 @@ const cors    = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 
-
-
-
-
 /* 
   add config files and enviroment files
 */
 
 require("dotenv").config();
-require(`./src/config/db.config`);
-
-
-
-
-
 
 /* 
    use bodyparser and cors
@@ -37,17 +27,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-
-
-
 /* 
    import routes
 */
 
+require(`./src/config/db.config`);
 require(`./src/app/routes/product.route`)(app);
-
-
-
 
 /*  
    add port to express server 
@@ -55,9 +40,10 @@ require(`./src/app/routes/product.route`)(app);
 
 const port = process.env.port || 5000;
 
-
-
-
+app.get('/', (req, res) => res.json({
+    status: true,
+    message: 'welcome to grocery api'
+}));
 
 /* 
    run express server
