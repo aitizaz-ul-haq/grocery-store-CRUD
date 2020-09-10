@@ -5,7 +5,7 @@ module.exports = app => {
         getProductById,
         updateProduct,
         deleteProduct
-    } = require('../controllers/product.controller');
+    } = require('../contollers/product.controller');
 
     app.post('/product', addproduct);
     app.get('/product', getproducts);

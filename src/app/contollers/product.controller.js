@@ -4,12 +4,12 @@ const { Product } = require("../modals/product.modal");
 //Add user to DB
 const addproduct = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, price, amount } = req.body;
 
     const response = await Product.create({
       name: name,
-      email: email,
-      password: password,
+      price: price,
+      amount: amount,
     });
 
     return res.status(200).json({
@@ -77,9 +77,9 @@ const updateProduct = async (req, res) => {
 
     const updateObj = req.body;
 
-    await User.update({ _id: id }, { $set: updateObj });
+    await Product.update({ _id: id }, { $set: updateObj });
 
-    const response = await User.find({ _id: id });
+    const response = await Product.find({ _id: id });
 
     return res.status(200).json({
       status: true,
@@ -102,13 +102,13 @@ const deleteProduct = async (req, res) => {
   try {
     const id = req.params.id;
 
-    await User.deleteOne({
+    await Product.deleteOne({
       _id: id,
     });
 
     return res.status(200).json({
       status: true,
-      message: "record deleted!",
+      message: "product deleted!",
     });
   } catch (error) {
     return res.status(200).json({
