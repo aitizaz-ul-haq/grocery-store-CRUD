@@ -1,4 +1,4 @@
-const { Product } = require("../models/product.model");
+const { Product } = require("../modals/product.modal");
 
 
 //Add user to DB
@@ -6,7 +6,7 @@ const addproduct = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const response = await User.create({
+    const response = await Product.create({
       name: name,
       email: email,
       password: password,
@@ -29,7 +29,7 @@ const addproduct = async (req, res) => {
 // Get all users Stored in DB
 const getproducts = async (req, res) => {
   try {
-    const response = await User.find();
+    const response = await Product.find();
 
     return res.status(200).json({
       status: true,
@@ -52,7 +52,7 @@ const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const response = await User.find({
+    const response = await Product.find({
       _id: id,
     });
 
