@@ -26,8 +26,10 @@ app.use(cors())
   add config files and enviroment files
 
 */
-require(`./src/config/db.config`);
+
 require("dotenv").config();
+require(`./src/config/db.config`);
+
 
 /* 
    import routes
