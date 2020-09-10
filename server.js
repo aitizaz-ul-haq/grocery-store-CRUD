@@ -29,11 +29,19 @@ app.use(cors())
 require(`./src/config/db.config`);
 require("dotenv").config();
 
+/* 
+   import routes
+*/
+
+require(`./src/app/routes/user.route`);
+
+
+
 /*  
     add port to express server 
  */
 
-const port = process.env.port || 3000
+const port = process.env.port || 5000;
 
 /* 
    run express server
