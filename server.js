@@ -7,21 +7,6 @@ const cors    = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 
-
-
-/* 
-use bodyparser and cors
-*/
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
- 
-// parse application/json
-app.use(bodyParser.json())
-
-// use cors
-app.use(cors())
-
 /* 
   add config files and enviroment files
 
@@ -37,6 +22,19 @@ require(`./src/config/db.config`);
 
 require(`./src/app/routes/product.route`);
 
+
+/* 
+use bodyparser and cors
+*/
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
+
+// use cors
+app.use(cors())
 
 
 /*  

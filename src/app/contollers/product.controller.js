@@ -1,7 +1,7 @@
 const { Product } = require("../modals/product.modal");
 
 
-//Add user to DB
+//Add product to DB
 const addproduct = async (req, res) => {
   try {
     const { name, price, amount } = req.body;
@@ -26,7 +26,7 @@ const addproduct = async (req, res) => {
 
 
 
-// Get all users Stored in DB
+// Get all product Stored in DB
 const getproducts = async (req, res) => {
   try {
     const response = await Product.find();
@@ -47,7 +47,7 @@ const getproducts = async (req, res) => {
 
 
 
-//Get a User from DB by ID 
+//Get a product from DB by ID 
 const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -70,7 +70,7 @@ const getProductById = async (req, res) => {
 
 
 
-// Update a user in DB by Finding it by id and then updating it 
+// Update a product in DB by Finding it by id and then updating it 
 const updateProduct = async (req, res) => {
   try {
     const id = req.params.id;
@@ -96,7 +96,7 @@ const updateProduct = async (req, res) => {
 
 
 /* 
-  Remove a user from DB
+  Remove a product from DB
 */
 const deleteProduct = async (req, res) => {
   try {
