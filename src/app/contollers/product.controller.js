@@ -1,4 +1,5 @@
 const { product } = require("../modals/product.modal");
+const fs = require('fs');
 
 //Add product to DB
 const addproduct = async (req, res) => {
@@ -9,6 +10,11 @@ const addproduct = async (req, res) => {
       name: name,
       price: price,
       amount: amount,
+    });
+
+    fs.writeFile('mynewfile.json', JSON.stringify(response), function (err) {
+      if (err) throw err;
+      console.log('saved to file also');
     });
 
     return res.status(200).json({
