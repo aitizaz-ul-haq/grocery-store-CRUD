@@ -1,25 +1,24 @@
-const { product } = require("../modals/product.modal");
-const fs = require('fs');
+const e = require("express");
+const uniqid = require("uniqid");
+const { writeToFile, readFile } = require("../../utils/file-operations.utils");
 
-//Add product to DB
+//Add product to file
 const addproduct = async (req, res) => {
   try {
     const { name, price, amount } = req.body;
-
-    const response = await product.create({
+    const id = uniqid();
+    const userObj = {
+      id: id,
       name: name,
       price: price,
       amount: amount,
-    });
+    };
 
-    fs.writeFile('mynewfile.json', JSON.stringify(response), function (err) {
-      if (err) throw err;
-      console.log('saved to file also');
-    });
+    writeToFile(userObj);
 
     return res.status(200).json({
       status: true,
-      data: response,
+      data: userObj,
     });
   } catch (error) {
     return res.status(200).json({
@@ -32,17 +31,12 @@ const addproduct = async (req, res) => {
 // Get all product Stored in DB
 const getproducts = async (req, res) => {
   try {
-    const response = await product.find();
-    
-    
+    const response = readFile();
     return res.status(200).json({
       status: true,
       length: response.length,
       data: response,
     });
-    
-  
-
   } catch (error) {
     return res.status(200).json({
       status: false,
@@ -56,25 +50,27 @@ const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const response = await product.find({
-      _id: id,
-    });
-
+   
+    const response = readFile();
     if (response.length > 0) {
-      return res.status(200).json({
-        status: true,
-        data: response,
+      response.forEach((element, i) => {
+        if(element.id === id) {
+          return res.status(200).json({
+            status: true,
+            data: response[i],
+          }); 
+        }
       });
     } else {
       return res.status(200).json({
         status: false,
-        message: 'record not found!',
+        message: "record not found!",
       });
     }
   } catch (error) {
     return res.status(200).json({
       status: false,
-      message: "id not found",
+      message: error.message,
     });
   }
 };
@@ -84,26 +80,20 @@ const updateProduct = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const updateObj = req.body;
+    const response = readFile();
 
-    await product.update({ _id: id }, { $set: updateObj });
-
-    const response = await product.find({ _id: id });
-
-    if (response.length > 0 ) {
-    return res.status(200).json({
-      status: true,
-      message : 'data updated',
-      data: response,
-    });
-  }
-    else {
+    if (response.length > 0) {
+      return res.status(200).json({
+        status: true,
+        message: "data updated",
+        data: response,
+      });
+    } else {
       return res.status(200).json({
         status: false,
-        message: 'not updated',
+        message: "not updated",
       });
     }
-
   } catch (error) {
     return res.status(200).json({
       status: false,
@@ -123,22 +113,17 @@ const deleteProduct = async (req, res) => {
       _id: id,
     });
 
-    if( req.params.id == id ) {
-
+    if (req.params.id == id) {
       return res.status(200).json({
         status: true,
         message: "product deleted!",
       });
-    }
-
-    else {
+    } else {
       return res.status(200).json({
         status: true,
         message: "record not found",
       });
     }
-        
-    
   } catch (error) {
     return res.status(200).json({
       status: false,
